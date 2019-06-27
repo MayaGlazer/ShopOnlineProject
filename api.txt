@@ -1,0 +1,48 @@
+**list of api**
+USERS --
+
+Allusers = http://localhost:3010/api/users (Get)
+Sign up a new user = http://localhost:3010/api/users (Post)
+Get user by id = http://localhost:3010/api/users/:userid (Get)
+Login form = http://localhost:3010/api/users/login (Post)
+
+PRODUCTS -- 
+
+Allproducts = http://localhost:3010/api/products (Get)
+Add new product = http://localhost:3010/api/products (Post)
+Count all products = http://localhost:3010/api/products/count (Get)
+Get Product by id = http://localhost:3010/api/products/:prodid (Get)
+Update product = http://localhost:3010/api/products/:prodid (Put)
+Get Products by Cat_Id = http://localhost:3010/api/products/category/:catid (Get)
+
+PRODUCTS_CATEGORY -- 
+
+Get all categories = http://localhost:3010/api/productscategory (GET)
+
+SHOPPING CART -- 
+
+Start Shopping = http://localhost:3010/api/shoppingcart (POST)
+Get cart by cust id (Continue Shopping) = http://localhost:3010/api/shoppingcart/:custid (GET)
+
+CART ITEMS -- 
+
+Add to Cart = http://localhost:3010/api/cartitems (POST)
+Get All Cart Items by cart id (My cart) = http://localhost:3010/api/cartitems/mycart/:cart_id (GET)
+Update Cart Item  = http://localhost:3010/api/cartitems/:itemid (PUT)
+Get Total Price (of shop cart) = http://localhost:3010/api/cartitems/sum/:cart_id (GET)
+Remove Cart Item from cart = http://localhost:3010/api/cartitems/delete/:itemid (GET)
+RemoveAll Cart Item from cart = http://localhost:3010/api/cartitems/delete/all/:cart_id (GET)
+
+ORDER DETAILS -- 
+
+Finish Order = http://localhost:3010/api/orderdetails (POST)
+Count all Orders = http://localhost:3010/api/orderdetails/count (GET)
+Shipping Date Array = http://localhost:3010/api/orderdetails/datearray (GET)
+
+
+
+countDates (array, value) {
+    var count = 0;
+    array.forEach((v) => (v === value && count++));
+    return count;
+}
