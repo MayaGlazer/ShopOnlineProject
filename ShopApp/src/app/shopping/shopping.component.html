@@ -1,0 +1,59 @@
+<app-dashboard></app-dashboard>
+<!-- <p>
+  shopping works!
+</p> -->
+
+<br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2" id="notebook">
+        <ul  class="list-group list-group-flush" style="margin-top: 36px;height: 300px;">
+      <li class="list-group-item" *ngFor="let item of cartItems" id="{{item._id}}" style="background:none">
+        <img class="listImg" [src]="item.image">{{item.name}} Qty: {{item.quantity}}<br> Total Price: {{item.overall_price}}&#8362;
+        <!-- <button (click)="removeItem(item.id)">&times;</button> -->
+        <span (click)="removeItem(item._id)">&times;</span>
+      </li>
+      <div id="footer" >
+        <span style="float: left; font-size:40px;">Total: {{Total}}&#8362;&nbsp;&nbsp;</span><!-- <span id="order" style="float: right;" (click)="goToOrder()"><u>Order!</u></span></div-->
+        <span (click)="goToOrder()" class="link link--kukuri" data-letters="Order!">Order!</span>
+        </div>
+    </ul>
+    </div>
+    <!-- (focus)="OnFocus(category._id)" (blur)="OnBlur(category._id)" -->
+    <div class="col-sm-10">
+      Search Products:&nbsp; <input #str (keyup)="searchP(str.value)">&nbsp;&nbsp;
+      <div *ngIf="NoSearch" class="btn-group btn-group-lg">
+
+        <!-- Search Products<input [ngModel]="searchStr" (ngModelChange)="searchP($event)"> -->
+        <button  *ngFor="let category of productsCategory" type="button" id="{{category._id}}" class="btn btn-warning bordered" (click)="getProducts(category._id); onSelect(category)"
+          [class.selected]="category === selectedCat">{{ category.name }}</button>
+      </div>
+      <hr>
+      <div *ngIf="NoSearch" class="row" style="margin-left: auto;">
+        <div *ngFor="let product of selectedProducts" id="{{product._id}}" class="floated">
+          <img class="prodimg" [src]="product.image">
+          <br>
+          <b>{{product.name}}   </b>&nbsp;<span class="Pprice">{{product.price}} &#8362;</span>
+          <br> Qty:&nbsp;
+          <input id="qty{{product._id}}" type="number" class="quantity input-sm" value="1">&nbsp;&nbsp;
+          <button type="submit" class="buttoncss btn btn-xs btn-link" (click)="addToCart(product, 'qty'+product._id)">
+            <span>Add to Cart</span>
+          </button>
+        </div>
+      </div>
+      <div class="row" style="margin-left: auto;">
+          <div *ngFor="let product of searchedProducts" id="{{product._id}}" class="floated">
+            <img class="prodimg" [src]="product.image">
+            <br>
+            <b>{{product.name}}   </b>&nbsp;<span class="Pprice">{{product.price}} &#8362;</span>
+            <br> Qty:&nbsp;
+            <input id="qty{{product._id}}" type="number" class="quantity input-sm" value="1">&nbsp;&nbsp;
+            <button type="submit" class="buttoncss btn btn-xs btn-link" (click)="addToCart(product, 'qty'+product._id)">
+              <span>Add to Cart</span>
+            </button>
+          </div>
+        </div>
+    </div>
+
+  </div>
+</div>

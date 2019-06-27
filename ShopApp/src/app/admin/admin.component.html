@@ -1,0 +1,126 @@
+<app-dashboard></app-dashboard>
+<br>
+<div class="container-fluid">
+  <div class="row">
+      
+    <div class="col-sm-2" id="notebook" >
+      <button type="button" class="btn btn-outline-dark" style="margin-left: 65px;" (click)="addingFields()">Add Product</button>
+        <ul class="list-group list-group-flush" style="margin-top: 16px;height: 340px;" *ngIf="chosen">
+      <!-- <li class="list-group-item" *ngIf="EditProductB" style="background:none"> -->
+      <!-- <form #productForm="ngForm" *ngIf="!submitted" (ngSubmit)="update(productForm)"> -->
+        <!-- <input [(ngModel)]="prodjson.name"><br>
+        Product Price: <input [(ngModel)]="prodjson.price"><br>
+        Category Id: <input [(ngModel)]="prodjson.cat_id"><br>
+        Image: <img class="listImg" [src]="prodjson.image"><br> -->
+        <form #productForm="ngForm" *ngIf="existingProduct">
+            <div class="form-group">
+                <!-- <label for="name">Name</label> -->
+                Product Name: <input type="text" #pName="ngModel" class="form-control" id="name" 
+                       required
+                       [(ngModel)]="prodjson.name" name="pName">  
+              </div>
+            <div class="form-group">
+                <!-- <label for="name">Name</label> -->
+                Product Price: <input type="text" #pPrice="ngModel" class="form-control" id="price" 
+                       required
+                       [(ngModel)]="prodjson.price" name="pPrice">  
+              </div>
+            <div class="form-group">
+                <!-- <label for="name">Name</label> -->
+                Product Category: 
+                        <!-- <input type="text" class="form-control" id="catid" 
+                       required
+                       [(ngModel)]="prodjson.cat_id" name="name">   -->
+                       <select [(ngModel)]="selectedCatName" #pcName="ngModel" name="pcName">
+                        <option *ngFor="let cat of productsCategory">{{cat.name}}</option>
+                      </select>
+              </div>
+            <div class="form-group">
+                <!-- <label for="name">Name</label> -->
+                Product Image: <img class="listImg" [src]="prodjson.image"><br> 
+              </div>
+
+
+              <div id="footer" style="margin-left: 170px">
+                <!-- <span style="float: left; font-size:40px;">Total: {{Total}}&#8362;&nbsp;&nbsp;</span><span id="order" style="float: right;" (click)="goToOrder()"><u>Order!</u></span></div -->
+                <span (click)="Update(productForm)" class="link link--kukuri" data-letters="Save!">Save!</span>
+                </div>
+        </form>
+        <form #NewProductForm="ngForm" *ngIf="newProductF" (ngSubmit)="submitProduct(NewProductForm)">
+            <div class="form-group">
+                <!-- <label for="name">Name</label> -->
+                Product Name: <input type="text" #name="ngModel" class="form-control" id="name" 
+                       required
+                       [(ngModel)]="NewProductForm.name" name="name">  
+              </div>
+            <div class="form-group">
+                <!-- <label for="name">Name</label> -->
+                Product Price: <input type="text" #price="ngModel" class="form-control" id="price" 
+                       required
+                       [(ngModel)]="NewProductForm.price" name="price">  
+              </div>
+            <div class="form-group">
+                <!-- <label for="name">Name</label> -->
+                Product Category: 
+                        <!-- <input type="text" class="form-control" id="catid" 
+                       required
+                       [(ngModel)]="prodjson.cat_id" name="name">   -->
+                       <select [(ngModel)]="NewProductForm.catname" #catname="ngModel" name="catname">
+                        <option *ngFor="let cat of productsCategory">{{cat.name}}</option>
+                      </select>
+              </div>
+            <div class="form-group">
+                <!-- <label for="name">Name</label> -->
+                Product Image: <input type="file" (change)="handleUpload($event)" style="width: 205px;" [(ngModel)]="NewProductForm.image" #image="ngModel" name="image">
+                <img *ngIf="imgSrc" class="listImg" [src]="imgSrc"><br> 
+              </div>
+              <!-- <small class="text-danger" [class.d-none]="street.valid || street.untouched">Fill All Fields</small> -->
+
+              <div id="footer" style="margin-left: 170px">
+                <!-- <span style="float: left; font-size:40px;">Total: {{Total}}&#8362;&nbsp;&nbsp;</span><span id="order" style="float: right;" (click)="goToOrder()"><u>Order!</u></span></div -->
+                <!-- <span (click)="Update(productForm, prodjson)" class="link link--kukuri" data-letters="Save!">Save!</span> -->
+                <button type="submit" class="link link--kukuri" [disabled]="NewProductForm.form.invalid">Save!</button>&nbsp;
+                </div>
+        </form>
+
+
+
+        <!-- <button (click)="removeItem(item.id)">&times;</button> -->
+      <!-- </li> -->
+      <!-- </form> -->
+    </ul>
+    </div>
+    <!-- (focus)="OnFocus(category._id)" (blur)="OnBlur(category._id)" -->
+    <div class="col-sm-10">
+      Search Products:&nbsp; <input #str (keyup)="searchP(str.value)">&nbsp;&nbsp;
+      <div *ngIf="NoSearch" class="btn-group btn-group-lg">
+
+        <!-- Search Products<input [ngModel]="searchStr" (ngModelChange)="searchP($event)"> -->
+        <button  *ngFor="let category of productsCategory" type="button" id="{{category._id}}" class="btn btn-warning bordered" (click)="getProducts(category._id); onSelect(category)"
+          [class.selected]="category === selectedCat">{{ category.name }}</button>
+      </div>
+      <hr>
+      <div *ngIf="NoSearch" class="row" style="margin-left: auto;">
+        <div *ngFor="let product of selectedProducts" id="{{product._id}}" class="floated">
+          <img class="prodimg" [src]="product.image">
+          <br>
+          <b>{{product.name}}   </b>&nbsp;<span class="Pprice">{{product.price}} &#8362;</span>
+          <button type="submit" class="buttoncss btn btn-xs btn-link" (click)="getProduct(product._id)">
+            <span>Update</span>
+          </button>
+        </div>
+      </div>
+      <div class="row" style="margin-left: auto;">
+          <div *ngFor="let product of searchedProducts" id="{{product._id}}" class="floated">
+            <img class="prodimg" [src]="product.image">
+            <br>
+            <b>{{product.name}}   </b>&nbsp;<span class="Pprice">{{product.price}} &#8362;</span>
+            <button type="submit" class="buttoncss btn btn-xs btn-link" (click)="getProduct(product._id)">
+              <span>Update</span>
+            </button>
+          </div>
+        </div>
+    </div>
+
+  </div>
+</div>

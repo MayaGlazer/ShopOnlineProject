@@ -1,0 +1,23 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark">
+  <ul class="navbar-nav container">
+    <li class="nav-item"style="list-style-type: none;">
+      <img id="logo" src="../../assets/logo.png" alt="">
+    </li>
+    <li>
+      <u>CONTACT US:</u>
+      phone: 1800-56-56-56&nbsp;
+      email: sf@superfood.com
+      <!-- <div>
+        Hello {{ user.firstname | Guest}}
+      </div> -->
+      <hr>
+      <div *ngIf="isLoggedIn; else loggedOut">
+          Welcome, {{retVal.name}} <button type="button" class="btn btn-link" (click)="logout()">Logout</button>
+      </div>
+      <ng-template #loggedOut>
+          Hello Guest, please log in.
+      </ng-template>
+    </li>
+    </ul>
+</nav>
+<br>

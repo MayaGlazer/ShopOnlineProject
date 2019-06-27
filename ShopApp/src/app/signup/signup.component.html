@@ -1,0 +1,70 @@
+<app-dashboard></app-dashboard>
+<div class="container-fluid">
+  <!-- <div class="row"> -->
+    <form #SignupForm="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit(SignupForm)" class="row" novalidate style="margin-left: 30%; width: 70%">
+      <div id="column1" class="col-sm" style="max-width: 25%">
+            <!-- {{ SignupForm.value | json}}  -->
+            <!-- {{ SignupForm.form | json }} -->
+        <div class="form-group">
+          <label>ID</label>
+          <input type="text" #id="ngModel" required class="form-control" [class.is-invalid]="id.invalid && id.touched"
+            name="id" [(ngModel)]="SignupForm.id">
+          <small class="text-danger" [class.d-none]="id.valid || id.untouched">Id is required</small>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" #email="ngModel" required class="form-control" [class.is-invalid]="email.invalid && email.touched"
+            name="email" [(ngModel)]="SignupForm.email">
+          <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required.</small>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" #password="ngModel" required class="form-control" [class.is-invalid]="password.invalid && password.touched"
+            name="password" [(ngModel)]="SignupForm.password">
+          <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required.</small>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" #confirmpassword="ngModel" required class="form-control" [class.is-invalid]="confirmpassword.invalid && confirmpassword.touched"
+            name="confirmpassword" [(ngModel)]="SignupForm.confirmpassword">
+          <!-- <small class="text-danger" [class.d-none]="confirmpassword.valid || confirmpassword.untouched">Password is required</small><hr> -->
+          <small class="text-danger" [class.d-none]="password.value == confirmpassword.value">Password has to match</small><hr>
+        </div>
+        <button *ngIf="showStep2 == false" type="button" (click)="nextStep(SignupForm)" class="btn btn-primary" [disabled]="confirmpassword.invalid || password.invalid || id.invalid || email.invalid">Next</button>&nbsp;
+        <small class="text-danger" *ngIf="errorMsg">{{errorMsg}}</small>
+      </div>
+      <div id="column2" class="col-sm" style="max-width: 25%">
+        <div *ngIf="showStep2">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" #firstname="ngModel" required class="form-control" [class.is-invalid]="firstname.invalid && firstname.touched"
+                  name="firstname" [(ngModel)]="SignupForm.firstname">
+                <small class="text-danger" [class.d-none]="firstname.valid || firstname.untouched">First Name is required</small>
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" #lastname="ngModel" required class="form-control" [class.is-invalid]="lastname.invalid && lastname.touched"
+                  name="lastname" [(ngModel)]="SignupForm.lastname">
+                <small class="text-danger" [class.d-none]="lastname.valid || lastname.untouched">Last Name is required.</small>
+              </div>
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" #city="ngModel" required class="form-control" [class.is-invalid]="city.invalid && city.touched"
+                  name="city" [(ngModel)]="SignupForm.city">
+                <small class="text-danger" [class.d-none]="city.valid || city.untouched">City is required.</small>
+              </div>
+              <div class="form-group">
+                <label>Street</label>
+                <input type="text" #street="ngModel" required class="form-control" [class.is-invalid]="street.invalid && street.touched"
+                  name="street" [(ngModel)]="SignupForm.street">
+                <small class="text-danger" [class.d-none]="street.valid || street.untouched">Street is required</small>
+              </div>
+          <hr>
+          <button type="submit" class="btn btn-primary" [disabled]="SignupForm.form.invalid && password.value != confirmpassword.value">Submit form</button>&nbsp;
+        </div>
+      </div>
+    </form>
+    <!-- <div *ngIf="showStep2" id="column2" class="col-sm">
+    </div> -->
+  <!-- </div> -->
+</div>

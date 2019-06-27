@@ -1,0 +1,76 @@
+<app-dashboard></app-dashboard>
+<br>
+<div class="container-fluid">
+  <div class="row">
+    <div id="column1" class="col-sm" style="max-width: 25%">
+      <!-- {{ SignupForm.value | json}}  -->
+      <!-- {{ SignupForm.form | json }} -->
+      Search Products:&nbsp; <input #str (keyup)="searchItems(str.value)">
+      <ul *ngIf="searchOn == false" class="list-group list-group-flush" style="margin-top: 36px;height: 300px;">
+        <li class="list-group-item" *ngFor="let item of cartItems" id="{{item._id}}" style="background:none">
+          <img class="listImg" [src]="item.image">&nbsp;&nbsp;&nbsp;{{item.name}} Qty: {{item.quantity}}
+          <br> Total Price: {{item.overall_price}}&#8362;
+          <!-- <button (click)="removeItem(item.id)">&times;</button> -->
+          <!-- <span (click)="removeItem(item._id)">&times;</span> -->
+        </li>
+      </ul>
+      <ul id="txt" *ngIf="searchOn" class="list-group list-group-flush" style="margin-top: 36px;height: 300px;">
+        <li class="list-group-item" *ngFor="let item of searchedItems" id="{{item._id}}" style="background:none">
+          <img class="listImg" [src]="item.image">&nbsp;&nbsp;&nbsp;{{item.name}} Qty: {{item.quantity}}
+          <br> Total Price: {{item.overall_price}}&#8362;
+          <!-- <button (click)="removeItem(item.id)">&times;</button> -->
+          <!-- <span (click)="removeItem(item._id)">&times;</span> -->
+        </li>
+      </ul>
+          <div id="footer">
+            <span style="float: left; font-size:40px;">Total: {{Total}}&#8362;&nbsp;&nbsp;</span>
+            <!-- <span id="order" style="float: right;" (click)="goToOrder()"><u>Order!</u></span></div-->
+          </div>
+    </div>
+    <div id="column2" class="col-sm" style="max-width: 25%">
+      <form #orderForm="ngForm" *ngIf="!submitted" (ngSubmit)="finishOrder(orderForm)" class="row" novalidate style="margin-left: 30%; width: 70%">
+        <div>Shipping Details:</div>
+        <hr>
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" #city="ngModel" required class="form-control" [class.is-invalid]="city.invalid && city.touched" name="city"
+            [(ngModel)]="orderForm.city">
+          <small class="text-danger" [class.d-none]="city.valid || city.untouched">City is required.</small>
+        </div>
+        <div class="form-group">
+          <label>Street</label>
+          <input type="text" #street="ngModel" required class="form-control" [class.is-invalid]="street.invalid && street.touched"
+            name="street" [(ngModel)]="orderForm.street">
+          <small class="text-danger" [class.d-none]="street.valid || street.untouched">Street is required</small>
+        </div>
+        <div class="form-group">
+          <label>Shipping Date</label>
+          <input type="date" #shippingdate="ngModel" required class="form-control" [class.is-invalid]="shippingdate.invalid && shippingdate.touched"
+            name="shippingdate" [(ngModel)]="orderForm.shippingdate">
+          <small class="text-danger" [class.d-none]="shippingdate.valid || shippingdate.untouched">Shipping Date is required</small>
+        </div>
+        <div class="form-group">
+          <div>Payment:</div>
+          <hr>
+          <label>Credit Card</label>
+          <input type="text" #creditcard="ngModel" required class="form-control" [class.is-invalid]="creditcard.invalid && creditcard.touched"
+            name="creditcard" [(ngModel)]="orderForm.creditcard">
+          <small class="text-danger" [class.d-none]="creditcard.valid || creditcard.untouched">Credit Card is required.</small>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary" [disabled]="orderForm.form.invalid">Submit form</button>&nbsp;
+
+        <!-- </div> -->
+      </form>
+    </div>
+    <div id="column3" class="col-sm">
+      <div *ngIf="submitted">
+        Your Purchase Was Successful!
+        Download your receipt <button (click)="gabi_content()"><u>Here</u></button>&nbsp;&nbsp;
+        <button (click)="backtohome()">Back to Home</button>
+
+      </div>
+    </div>
+    
+  </div>
+</div>

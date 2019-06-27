@@ -1,0 +1,25 @@
+<app-dashboard [isLoggedIn]="isLoggedIn"></app-dashboard>
+<br>
+<div class="container-fluid">
+<div class="row"> 
+
+<div id="column1" class="col-sm">
+      <div *ngIf="hasCart; else newCart">
+          <button (click)="setShopDetails()">Resume Shopping</button>
+      </div>
+      <ng-template #newCart>
+          <button (click)="startShopping()">Start Shopping!</button>
+      </ng-template>
+</div>
+<div id="column2" class="col-sm">
+  <u>SUPERFOOD FOR GOOD</u><hr>
+  Fresh groceries, world wines, household essentials, toys, and more - all delivered to your kitchen table. Register now and start saving with our Low Price
+</div>
+<div id="column3" class="col-sm">
+  Available products in our store: {{totalProducts}}
+  <hr>
+  Number of orders submitted in our store: {{totalOrders}}
+  </div>
+
+</div>
+</div>

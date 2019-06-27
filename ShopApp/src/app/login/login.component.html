@@ -1,0 +1,38 @@
+<app-dashboard [isLoggedIn]="isLoggedIn"></app-dashboard>
+<br>
+<div class="container-fluid">
+<div class="row"> 
+
+<div id="column1" class="col-sm">
+<form #LoginForm="ngForm" *ngIf="!submitted"  (ngSubmit)="onSubmit(LoginForm)" novalidate>
+    <div class="form-group">
+        <label>Email</label>
+      <input type="text" #email="ngModel" required class="form-control" [class.is-invalid]="email.invalid && email.touched" name="email"
+        [(ngModel)]="LoginForm.email">
+        <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+        </div>
+        <div class="form-group">
+        <label>Password</label>
+      <input type="password" #password="ngModel" required class="form-control" [class.is-invalid]="password.invalid && password.touched" name="password"
+      [(ngModel)]="LoginForm.password">
+        <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required</small>
+    </div>
+    <hr>
+
+    <button type="submit" class="btn btn-primary" [disabled]="LoginForm.form.invalid">Submit form</button>&nbsp;
+    <a routerLink="/signup">Sign Up</a>
+
+  </form>
+</div>
+<div id="column2" class="col-sm">
+    <u>SUPERFOOD FOR GOOD</u><hr>
+    Fresh groceries, world wines, household essentials, toys, and more - all delivered to your kitchen table. Register now and start saving with our Low Price
+</div>
+<div id="column3" class="col-sm">
+  Available products in our store: {{totalProducts}}
+  <hr>
+  Number of orders submitted in our store: {{totalOrders}}
+  </div>
+
+</div>
+</div>
